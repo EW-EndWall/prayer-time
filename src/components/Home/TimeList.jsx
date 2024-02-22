@@ -1,0 +1,100 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
+
+const TimeList = (props) => {
+  const { selectedCity } = props;
+  const { t } = useTranslation();
+
+  // * api url
+  // https://aladhan.com/prayer-times-api
+  // https://api.aladhan.com/v1/calendarByCity/2024/2?city=Ankara&country=Turkey&method=2
+
+  // * create useState
+  const [dataList, setDataList] = useState();
+  const [date, setDate] = useState();
+
+  useEffect(() => {
+    const fetchPrayerTimes = async () => {
+      try {
+        const dateData = new Date();
+        const yearData = dateData.getFullYear();
+        const monthData = dateData.getMonth();
+        const dayData = dateData.getDate() - 1;
+
+        const prayerTimesList = localStorage?.getItem("prayerTimesList");
+
+        // * check local data
+        if (!prayerTimesList) {
+          const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2?city=${selectedCity}&country=Turkey&method=2`;
+          // * get api data
+          const response = await axios.get(apiUrl);
+          // * response api data
+          const responseData = response.data.data;
+          // * sellect current day data
+          const responseDataSellect = responseData[dayData].timings;
+          // * edited data
+          const responseDataOk = [
+            [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
+            [t("Fajr"), responseDataSellect.Fajr.slice(0, -5)],
+            [t("Sunrise"), responseDataSellect.Sunrise.slice(0, -5)],
+            [t("Dhuhr"), responseDataSellect.Dhuhr.slice(0, -5)],
+            [t("Asr"), responseDataSellect.Asr.slice(0, -5)],
+            [t("Maghrib"), responseDataSellect.Maghrib.slice(0, -5)],
+            [t("Isha"), responseDataSellect.Isha.slice(0, -5)],
+          ];
+          // * set useState data
+          setDataList(responseDataOk);
+          // * save localstorage data
+          localStorage.setItem("prayerTimesList", JSON.stringify(responseData));
+        } else {
+          // * get localstorage data
+          const responseDataSellect = JSON.parse(localStorage.prayerTimesList)[
+            dayData
+          ].timings;
+          // * edited data
+          const responseDataOk = [
+            [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
+            [t("Fajr"), responseDataSellect.Fajr.slice(0, -5)],
+            [t("Sunrise"), responseDataSellect.Sunrise.slice(0, -5)],
+            [t("Dhuhr"), responseDataSellect.Dhuhr.slice(0, -5)],
+            [t("Asr"), responseDataSellect.Asr.slice(0, -5)],
+            [t("Maghrib"), responseDataSellect.Maghrib.slice(0, -5)],
+            [t("Isha"), responseDataSellect.Isha.slice(0, -5)],
+          ];
+          // * set useState data
+          setDataList(responseDataOk);
+        }
+        // * set useState data
+        setDate(`${dayData}.${monthData}.${yearData}`);
+      } catch (error) {
+        console.error("Error fetching prayer times:", error);
+      }
+    };
+    // * get and set data
+    fetchPrayerTimes();
+  }, [selectedCity]);
+
+  return (
+    <>
+      <div className="p-3 mb-3 text-center capitalize rounded-lg shadow-xl text-slate-500 dark:text-slate-400 font-bold bg-white dark:bg-slate-800">
+        {t("date")} : {date}
+      </div>
+      <ul className="mx-auto flex flex-col gap-3">
+        {dataList?.map((item, index) => (
+          <li
+            key={index}
+            className="capitalize p-3 rounded-lg shadow-xl text-slate-500 dark:text-slate-400 text-xs bg-white dark:bg-slate-800"
+          >
+            <div className="w-4/5 flex gap-3 justify-between mx-auto">
+              <span>{item[0]} :</span>
+              <span className="italic"> {item[1]}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default TimeList;
