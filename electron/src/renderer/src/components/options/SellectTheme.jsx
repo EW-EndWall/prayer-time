@@ -1,33 +1,33 @@
-import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
+import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet'
 
 const SellectTheme = (props) => {
-  const { darkMode, setDarkMode } = props;
-  const { t } = useTranslation();
+  const { darkMode, setDarkMode } = props
+  const { t } = useTranslation()
 
   // * System mode
   const toggleThemeSystemMode = () => {
     // * set theme mode data
-    setDarkMode(false);
+    setDarkMode(false)
     // * local remove theme mode data
-    localStorage.removeItem("theme");
-  };
+    localStorage.removeItem('theme')
+  }
   const toggleThemeDarkMode = () => {
-    const mode = !darkMode;
+    const mode = !darkMode
     // * set theme mode data
-    setDarkMode(mode);
+    setDarkMode(mode)
     if (mode == true) {
       // * Dark mode
-      localStorage.setItem("theme", "dark");
+      localStorage.setItem('theme', 'dark')
     } else {
       // * Light mode
-      localStorage.setItem("theme", "light");
+      localStorage.setItem('theme', 'light')
     }
-  };
+  }
   return (
     <>
       <Helmet>
-        <title>{t("Prayer Time - Theme Setting")}</title>
+        <title>{t('Prayer Time - Theme Setting')}</title>
       </Helmet>
       <div>
         <label className="w-full p-3 inline-flex items-center cursor-pointer justify-between text-gray-900 dark:text-white">
@@ -38,7 +38,7 @@ const SellectTheme = (props) => {
             checked={darkMode}
             onChange={toggleThemeDarkMode}
           />
-          <span className="capitalize me-3 text-sm">{t("dark mode")}</span>
+          <span className="capitalize me-3 text-sm">{t('dark mode')}</span>
           <div className="relative w-11 h-6 bg-gray-400 outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
         </label>
       </div>
@@ -48,7 +48,7 @@ const SellectTheme = (props) => {
           type="button"
           className="w-full p-3 flex items-center justify-between text-xs outline-none text-gray-900 dark:text-white"
         >
-          <span className="capitalize me-3 text-sm">{t("system theme")}</span>
+          <span className="capitalize me-3 text-sm">{t('system theme')}</span>
           <svg
             data-toggle-icon="sun"
             className="w-3.5 h-3.5"
@@ -62,7 +62,7 @@ const SellectTheme = (props) => {
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default SellectTheme;
+export default SellectTheme

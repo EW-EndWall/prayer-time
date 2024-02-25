@@ -14,65 +14,74 @@ const TimeList = (props) => {
   const [dataList, setDataList] = useState();
   const [date, setDate] = useState();
 
+  const fetchPrayerTimes = async (yearData, monthData, dayData) => {
+    try {
+      // const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2?city=${selectedCity}&country=Turkey&method=2`
+      const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2`;
+      // * get api data
+      const response = await axios.get(apiUrl, {
+        params: {
+          city: selectedCity,
+          country: "Turkey",
+          method: 2,
+        },
+      });
+      // * response api data
+      const responseData = response.data.data;
+      // * sellect current day data
+      const responseDataSellect = responseData[dayData].timings;
+      // * edited data
+      const responseDataOk = [
+        [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
+        [t("Fajr"), responseDataSellect.Fajr.slice(0, -5)],
+        [t("Sunrise"), responseDataSellect.Sunrise.slice(0, -5)],
+        [t("Dhuhr"), responseDataSellect.Dhuhr.slice(0, -5)],
+        [t("Asr"), responseDataSellect.Asr.slice(0, -5)],
+        [t("Maghrib"), responseDataSellect.Maghrib.slice(0, -5)],
+        [t("Isha"), responseDataSellect.Isha.slice(0, -5)],
+      ];
+      // * set useState data
+      setDataList(responseDataOk);
+      // * save localstorage data
+      localStorage.setItem("prayerTimesList", JSON.stringify(responseData));
+      // * set useState data
+      setDate(`${dayData}.${monthData}.${yearData}`);
+    } catch (error) {
+      console.error("Error fetching prayer times:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchPrayerTimes = async () => {
-      try {
-        const dateData = new Date();
-        const yearData = dateData.getFullYear();
-        const monthData = dateData.getMonth();
-        const dayData = dateData.getDate() - 1;
+    // * create date
+    const dateData = new Date();
+    const yearData = dateData.getFullYear();
+    const monthData = dateData.getMonth();
+    const dayData = dateData.getDate() - 1;
 
-        const prayerTimesList = localStorage?.getItem("prayerTimesList");
-
-        // * check local data
-        if (!prayerTimesList) {
-          const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2?city=${selectedCity}&country=Turkey&method=2`;
-          // * get api data
-          const response = await axios.get(apiUrl);
-          // * response api data
-          const responseData = response.data.data;
-          // * sellect current day data
-          const responseDataSellect = responseData[dayData].timings;
-          // * edited data
-          const responseDataOk = [
-            [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
-            [t("Fajr"), responseDataSellect.Fajr.slice(0, -5)],
-            [t("Sunrise"), responseDataSellect.Sunrise.slice(0, -5)],
-            [t("Dhuhr"), responseDataSellect.Dhuhr.slice(0, -5)],
-            [t("Asr"), responseDataSellect.Asr.slice(0, -5)],
-            [t("Maghrib"), responseDataSellect.Maghrib.slice(0, -5)],
-            [t("Isha"), responseDataSellect.Isha.slice(0, -5)],
-          ];
-          // * set useState data
-          setDataList(responseDataOk);
-          // * save localstorage data
-          localStorage.setItem("prayerTimesList", JSON.stringify(responseData));
-        } else {
-          // * get localstorage data
-          const responseDataSellect = JSON.parse(localStorage.prayerTimesList)[
-            dayData
-          ].timings;
-          // * edited data
-          const responseDataOk = [
-            [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
-            [t("Fajr"), responseDataSellect.Fajr.slice(0, -5)],
-            [t("Sunrise"), responseDataSellect.Sunrise.slice(0, -5)],
-            [t("Dhuhr"), responseDataSellect.Dhuhr.slice(0, -5)],
-            [t("Asr"), responseDataSellect.Asr.slice(0, -5)],
-            [t("Maghrib"), responseDataSellect.Maghrib.slice(0, -5)],
-            [t("Isha"), responseDataSellect.Isha.slice(0, -5)],
-          ];
-          // * set useState data
-          setDataList(responseDataOk);
-        }
-        // * set useState data
-        setDate(`${dayData}.${monthData}.${yearData}`);
-      } catch (error) {
-        console.error("Error fetching prayer times:", error);
-      }
-    };
-    // * get and set data
-    fetchPrayerTimes();
+    // * check local data
+    const prayerTimesList = localStorage?.getItem("prayerTimesList");
+    if (!prayerTimesList) {
+      // * get and set data
+      fetchPrayerTimes(yearData, monthData, dayData);
+    } else {
+      // * get localstorage data
+      const responseDataSellect = JSON.parse(localStorage.prayerTimesList)[
+        dayData
+      ].timings;
+      // * edited data
+      const responseDataOk = [
+        [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
+        [t("Fajr"), responseDataSellect.Fajr.slice(0, -5)],
+        [t("Sunrise"), responseDataSellect.Sunrise.slice(0, -5)],
+        [t("Dhuhr"), responseDataSellect.Dhuhr.slice(0, -5)],
+        [t("Asr"), responseDataSellect.Asr.slice(0, -5)],
+        [t("Maghrib"), responseDataSellect.Maghrib.slice(0, -5)],
+        [t("Isha"), responseDataSellect.Isha.slice(0, -5)],
+      ];
+      setDate(`${dayData}.${monthData}.${yearData}`);
+      // * set useState data
+      setDataList(responseDataOk);
+    }
   }, [selectedCity]);
 
   return (

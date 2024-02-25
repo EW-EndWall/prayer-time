@@ -1,29 +1,29 @@
-import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
-import SellectDataList from "./SellectDataList";
+import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet'
+import SellectDataList from './SellectDataList'
 
 const SellectCity = (props) => {
-  const { selectedCity, setSelectedCity } = props;
-  const { t } = useTranslation();
+  const { selectedCity, setSelectedCity } = props
+  const { t } = useTranslation()
 
   const toogleCity = (e) => {
-    const sellect = e.target.value;
+    const sellect = e.target.value
     // * set city data
-    setSelectedCity(sellect);
+    setSelectedCity(sellect)
     // * local save city data
-    localStorage.setItem("city", sellect);
+    localStorage.setItem('city', sellect)
     // * local remove prayerTimesList mode data
-    localStorage.removeItem("prayerTimesList");
-  };
+    localStorage.removeItem('prayerTimesList')
+  }
 
   return (
     <>
       <Helmet>
-        <title>{t("Prayer Time - City Setting")}</title>
+        <title>{t('Prayer Time - City Setting')}</title>
       </Helmet>
       <div className="mx-3 py-1">
         <label className="block capitalize my-2 text-sm font-medium text-gray-900 dark:text-white">
-          {t("city")}
+          {t('city')}
         </label>
         <select
           onChange={toogleCity}
@@ -36,7 +36,7 @@ const SellectCity = (props) => {
         </select>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default SellectCity;
+export default SellectCity
