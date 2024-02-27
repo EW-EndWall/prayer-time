@@ -9,35 +9,45 @@
   </h3>
 
   <p align="center">
-    example projects
+    electron | vite | react | tailwind
+    <br />
+    web & desktop
     <br /><br /><br />
   </p>
 </p>
 
-## Table Of Contents
+# Table Of Contents
 
 * [About](#about)
 * [Features](#features)
 * [Screenshot](#screenshot)
   * [Dark](#dark)
   * [Light](#light)
+* [Quick Installation](#quick-installation)
+  * [Electron](#electron)
+    * [Electron Install](#electron-install)
+    * [Electron Development](#electron-development)
+    * [Electron Build](#electron-build)
+  * [React](#react)
+    * [React Install](#react-install)
+    * [React Development](#react-development)
+    * [React Build](#react-build)
 * [License](#license)
 
-## About
+# About
 
 Never miss a prayer again with our intuitive prayer time application. Whether you're at home, work, or traveling, stay connected to your faith with accurate prayer times tailored to your location.
 
-## Features
+# Features
 
   - Multi-language support (en, tr)
   - Dark mode (dark, light, system mode)
   - Adhan time of 81 provinces
   - 30 days azan time is kept in localstorage
 
-## Screenshot
+# Screenshot
 
-### Dark
-<hr/>
+## Dark
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/EW-EndWall/prayer-time/main/screenshot/dark/1%20Prayer%20Time%20-%20Home.png" width="" />
@@ -47,8 +57,7 @@ Never miss a prayer again with our intuitive prayer time application. Whether yo
   <img src="https://raw.githubusercontent.com/EW-EndWall/prayer-time/main/screenshot/dark/5%20Prayer%20Time%20-%20Language%20Setting.png" width="" />
 </div>
 
-### Light
-<hr/>
+## Light
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/EW-EndWall/prayer-time/main/screenshot/light/1%20Prayer%20Time%20-%20Home.png" width="" />
@@ -58,6 +67,125 @@ Never miss a prayer again with our intuitive prayer time application. Whether yo
   <img src="https://raw.githubusercontent.com/EW-EndWall/prayer-time/main/screenshot/light/5%20Prayer%20Time%20-%20City%20Setting.png" width="" />
 </div>
 
-## License
+# Quick Installation
+
+## Electron
+
+```bash
+$ cd ./electron/
+```
+
+### Electron Install
+
+```bash
+$ npm install
+```
+or
+```bash
+$ yarn install
+```
+or
+```bash
+$ pnpm install
+```
+
+### Electron Development
+
+```bash
+$ npm dev
+```
+or
+```bash
+$ yarn dev
+```
+or
+```bash
+$ pnpm dev
+```
+
+### Electron Build
+
+```bash
+# For windows
+$ npm build:win
+
+# For macOS
+$ npm build:mac
+
+# For Linux
+$ npm build:linux
+```
+or
+```bash
+# For windows
+$ yarn build:win
+
+# For macOS
+$ yarn build:mac
+
+# For Linux
+$ yarn build:linux
+```
+or
+```bash
+# For windows
+$ pnpm build:win
+
+# For macOS
+$ pnpm build:mac
+
+# For Linux
+$ pnpm build:linux
+```
+
+## React
+
+```bash
+$ cd ./electron/
+```
+
+### React Install
+
+```bash
+$ npm install
+```
+or
+```bash
+$ yarn install
+```
+or
+```bash
+$ pnpm install
+```
+
+### React Development
+
+```bash
+$ npm dev
+```
+or
+```bash
+$ yarn dev
+```
+or
+```bash
+$ pnpm dev
+```
+
+### React Build
+
+```bash
+$ npm build
+```
+or
+```bash
+$ yarn build
+```
+or
+```bash
+$ pnpm build
+```
+
+# License
 
 Distributed under the Apache-2.0 License. See [LICENSE](https://github.com/EW-EndWall/prayer-time/blob/main/LICENSE) for more information.
