@@ -142,7 +142,7 @@ $ pnpm build:linux
 ## React
 
 ```bash
-$ cd ./electron/
+$ cd ./react/
 ```
 
 ### React Install
