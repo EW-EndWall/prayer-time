@@ -44,6 +44,7 @@ Never miss a prayer again with our intuitive prayer time application. Whether yo
   - Dark mode (dark, light, system mode)
   - Adhan time of 81 provinces
   - 30 days azan time is kept in localstorage
+  - Api (aladhan.com)
 
 # Screenshot
 

@@ -16,16 +16,16 @@ const TimeList = (props) => {
 
   const fetchPrayerTimes = async (yearData, monthData, dayData) => {
     try {
-      // const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2?city=${selectedCity}&country=Turkey&method=2`
-      const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2`
+      // const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2?city=${selectedCity}&country=Turkey&method=13`
+      const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/${monthData}`;
       // * get api data
       const response = await axios.get(apiUrl, {
         params: {
           city: selectedCity,
-          country: 'Turkey',
-          method: 2
-        }
-      })
+          country: "Turkey",
+          method: 13, // * http://api.aladhan.com/v1/methods - Diyanet İşleri Başkanlığı, Turkey (experimental)
+        },
+      });
       // * response api data
       const responseData = response.data.data
       // * sellect current day data
