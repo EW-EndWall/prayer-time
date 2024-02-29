@@ -57,7 +57,6 @@ const TimeList = (props) => {
     const yearData = dateData.getFullYear();
     const monthData = dateData.getMonth() + 1;
     const dayData = dateData.getDate();
-    console.log(dayData);
 
     // * check local data
     const prayerTimesList = localStorage?.getItem("prayerTimesList");
