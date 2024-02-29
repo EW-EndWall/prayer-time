@@ -8,7 +8,7 @@ const TimeList = (props) => {
 
   // * api url
   // https://aladhan.com/prayer-times-api
-  // https://api.aladhan.com/v1/calendarByCity/2024/2?city=Ankara&country=Turkey&method=2
+  // https://api.aladhan.com/v1/calendarByCity/2024/2?city=Ankara&country=Turkey&method=13
 
   // * create useState
   const [dataList, setDataList] = useState();
@@ -16,7 +16,7 @@ const TimeList = (props) => {
 
   const fetchPrayerTimes = async (yearData, monthData, dayData) => {
     try {
-      // const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/2?city=${selectedCity}&country=Turkey&method=13`
+      // const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/${monthData}?city=${selectedCity}&country=Turkey&method=13`
       const apiUrl = `https://api.aladhan.com/v1/calendarByCity/${yearData}/${monthData}`;
       // * get api data
       const response = await axios.get(apiUrl, {
@@ -29,7 +29,7 @@ const TimeList = (props) => {
       // * response api data
       const responseData = response.data.data;
       // * sellect current day data
-      const responseDataSellect = responseData[dayData].timings;
+      const responseDataSellect = responseData[dayData - 1].timings;
       // * edited data
       const responseDataOk = [
         [t("Imsak"), responseDataSellect.Imsak.slice(0, -5)],
@@ -55,8 +55,9 @@ const TimeList = (props) => {
     // * create date
     const dateData = new Date();
     const yearData = dateData.getFullYear();
-    const monthData = dateData.getMonth();
-    const dayData = dateData.getDate() - 1;
+    const monthData = dateData.getMonth() + 1;
+    const dayData = dateData.getDate();
+    console.log(dayData);
 
     // * check local data
     const prayerTimesList = localStorage?.getItem("prayerTimesList");
@@ -66,7 +67,7 @@ const TimeList = (props) => {
     } else {
       // * get localstorage data
       const responseDataSellect = JSON.parse(localStorage.prayerTimesList)[
-        dayData
+        dayData - 1
       ].timings;
       // * edited data
       const responseDataOk = [
