@@ -64,6 +64,7 @@ const TimeList = (props) => {
     const dataDate = JSON.parse(localStorage?.getItem("dataDate"));
     if (
       !prayerTimesList ||
+      !dataDate ||
       dataDate[0] != monthData ||
       dataDate[1] != yearData
     ) {
