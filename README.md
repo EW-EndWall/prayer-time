@@ -9,9 +9,9 @@
   </h3>
 
   <p align="center">
-    electron | vite | react | tailwind
+    electron | ionic | vite | react | tailwind
     <br />
-    web & desktop
+    web & mobil & desktop
     <br /><br /><br />
   </p>
 </p>
